@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import LocationContext from "./Context/LocationContext";
+
 
 ReactDOM.render(
-  <React.StrictMode>
+  <LocationContext>
     <App />
-  </React.StrictMode>,
+  </LocationContext>,
   document.getElementById('root')
 );
 

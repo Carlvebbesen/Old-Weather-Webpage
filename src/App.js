@@ -1,27 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
+import Search from './Components/Search/Search';
+
+const GlobalState = React.createContext({
+  address: "",
+  geocode: {
+    lat: "",
+    long: ""
+  }
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-
-          
-        </p>
-        <a
-          className="App-link"
-          href="https://reacts.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <Search/>
     </div>
   );
 }
-
 export default App;
