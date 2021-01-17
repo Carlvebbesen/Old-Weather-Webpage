@@ -1,18 +1,22 @@
 import './App.css';
-import Search from './Components/Search/Search';
-
-const GlobalState = React.createContext({
-  address: "",
-  geocode: {
-    lat: "",
-    long: ""
-  }
-})
+import SearchPage from './Pages/SearchPage';
+import WeatherPage from './Pages/WeatherPage';
+import SkiSenterPage from "./Pages/SkiSenterPage";
+import VarsomPage from "./Pages/VarsomPage";
+import NavBar from "./Components/NavBar/NavBar";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
     <div>
-        <Search/>
+      <Switch>
+        <Route path={"/WeatherData"} exact component={WeatherPage} />
+        <Route path={"/SkiSenter"} exact component={SkiSenterPage} />
+        <Route path={"/avalanche"} exact component={VarsomPage} />
+        <Route path={"/"} exact component={SearchPage} />
+        <Redirect to={"/"}/>
+      </Switch>
+      <NavBar className={"NavBar"}/>
     </div>
   );
 }

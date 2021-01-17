@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import LocationContext from "./Context/LocationContext";
+import { BrowserRouter } from 'react-router-dom';
 
 
 ReactDOM.render(
+  <BrowserRouter>
   <LocationContext>
     <App />
-  </LocationContext>,
+  </LocationContext>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

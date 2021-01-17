@@ -34,7 +34,7 @@ class Search extends Component {
     render() {
         return (
         <div>
-            <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyAKBWbP8iISjUpEwD5qMfmUxKtHcr2W5aw&libraries=places`}
+            <Script url={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`}
                 onLoad={this.handleScriptLoad}
             />
             <Searchbar

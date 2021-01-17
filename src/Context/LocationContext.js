@@ -17,7 +17,7 @@ const LocationContext = props => {
   }
   return(
     <DestinationContext.Provider
-     value={location}>
+     value={{pickedLocation: location, setPickedLocation: (LocationObject)=> setLocation(LocationObject)}}>
       {props.children}
     </DestinationContext.Provider>
   )
