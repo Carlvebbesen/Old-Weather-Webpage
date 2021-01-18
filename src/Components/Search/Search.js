@@ -3,12 +3,13 @@ import Searchbar from 'material-ui-search-bar';
 import Script from "react-load-script";
 
 class Search extends Component {
-
-    handleScriptLoad = () => {
+    handleScriptLoad = (
+    ) => {
         // Declare Options For Autocomplete 
-        const options = { types: ["geocode", "establishment"],
-        componentRestrictions: {country: ['no', "at","ca"]}
-    };
+        const options = {
+            types: ["geocode", "establishment"],
+            componentRestrictions: { country: ['no', "at", "ca"] }
+        };
 
         // Initialize Google Autocomplete 
         /*global google*/
@@ -21,34 +22,39 @@ class Search extends Component {
         this.autocomplete.setFields(["geometry", "formatted_address"]);
         // Fire Event when a suggested name is selected
         this.autocomplete.addListener("place_changed",
-            this.handlePlaceSelect);
+            this.handlePlaceSelect
+        );
     }
 
-    handlePlaceSelect = ()=>{
-        const addressObject = this.autocomplete.getPlace()
-        console.log("geometry: " + addressObject.geometry.location)
-
-        console.log("formatted address" + addressObject.formatted_address)
+    handlePlaceSelect = () => {
+        const addressObject = this.autocomplete.getPlace();
+        this.props.destinationHandler({
+            address: addressObject.formatted_address,
+            geocode: {
+                lat: addressObject.geometry.location.lat(),
+                long: addressObject.geometry.location.lng(),
+            }
+        });
     }
 
     render() {
         return (
-        <div>
-            <Script url={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`}
-                onLoad={this.handleScriptLoad}
-            />
-            <Searchbar
-                id="autocomplete"
-                placeholder={"Søk"}
-                //value={address}
-                style={{
-                    margin: "0 auto",
-                    maxWidth: 800
-                }}
-            />
-        </div>
-    );
-}
+            <div>
+                <Script url={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`}
+                    onLoad={this.handleScriptLoad}
+                />
+                <Searchbar
+                    id="autocomplete"
+                    placeholder={"Søk"}
+                    //value={address}: om jeg skal få valuen til å settes ved klikk på en av optionene 
+                    style={{
+                        margin: "0 auto",
+                        maxWidth: 800
+                    }}
+                />
+            </div>
+        );
+    }
 }
 
 export default Search;

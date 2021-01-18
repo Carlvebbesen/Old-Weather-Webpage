@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 
-export const DestinationContext   = React.createContext({
-    address: "",
-    geocode: {
-      lat: "",
-      long: ""
-    },
-    location: () => {}
-  });
+export const DestinationContext = React.createContext({
+  address: "",
+  geocode: {
+    lat: "",
+    long: ""
+  }
+});
 
 const LocationContext = props => {
   const [location, setLocation] = useState("");
-
-  const locationHandler = (LocationObject) =>{
-      setLocation(LocationObject);
-  }
-  return(
+  return (
     <DestinationContext.Provider
-     value={{pickedLocation: location, setPickedLocation: (LocationObject)=> setLocation(LocationObject)}}>
+      value={{ pickedLocation: location, setLocation }}>
       {props.children}
     </DestinationContext.Provider>
   )
