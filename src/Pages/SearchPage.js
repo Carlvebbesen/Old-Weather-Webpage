@@ -9,7 +9,7 @@ const SearchPage = () => {
     
     const setLocationHandler = (locationObject) => {
         locationContext.setLocation(locationObject);
-        history.push("/weatherdata")
+        history.push("/skisenter")
 
     }
     return (
