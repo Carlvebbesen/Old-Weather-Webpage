@@ -1,50 +1,54 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { DestinationContext } from "../Context/LocationContext";
 import fnuggAxios from "../Axios-instances/FnuggAxios";
-import Iframe from "react-iframe";
+import Spinner from "../Components/Spinner/Spinner";
+import PagesFrame from "../Components/PagesFrame/PagesFrame";
+import SnowPost from "../Components/SnowPost/SnowPost"
+import "./Pages.css"
 
 const SkiSenterPage = () => {
     const locationContext = useContext(DestinationContext);
-    const [skisenterID, setSkisenterID] = useState("");
+    const [skisenterID, setSkisenterID] = useState({id: [""], name: ""});
     const [isLoading, setIsLoading] = useState(false);
-    let skisenterIframe = <p>Du må bruke søke funksjonen først for å finne nærmeste skisenter, kan eventuelt vise det senteret det har kommet mest snø i</p>
 
-        useEffect(() => {
-            if (locationContext.pickedLocation !== "") {
+    const loadData = useCallback( async ()=>{
+        let response;
+        try {
+            setIsLoading(true)
+            if(locationContext.pickedLocation !== ""){
                 const geocodeLat = locationContext.pickedLocation.geocode.lat;
                 const geocodeLong = locationContext.pickedLocation.geocode.long;
-                console.log(locationContext)
-                let skiSenterResponse;
-                if (!skiSenterResponse) {
-                    setIsLoading(true)
-                    fnuggAxios.get(`/geodata/getnearest?lat=${geocodeLat}&lon=${geocodeLong}&distance=100km`).then(response => {
-                        setIsLoading(false)
-                        console.log(response)
-                        if (response.data.hits.total === 0) {
-                            //Her må de skje noe ved null skisentre, funnet ved 100 km radius 
-                        }
-                        else {
-                            setSkisenterID(response.data.hits.hits[0]._id);
-                            skiSenterResponse = response;
-                        }
-                    }).catch(error => {
-                        console.log(error)
-                        setIsLoading(false);
-                    })
-                }
-                //sender for å hente widgetten denne vil også updates hvis en av de andre widgetsene velges, altså ikke hovedwidgetten.
+                response = await fnuggAxios.get(`/geodata/getnearest?lat=${geocodeLat}&lon=${geocodeLong}&distance=100km&size=3`);
+                setSkisenterID({id:
+                     [response.data.hits.hits[0]._id, response.data.hits.hits[1]._id, response.data.hits.hits[2]._id],
+                      name: "Søkt etter: " + locationContext.pickedLocation.address});
             }
-        }, [locationContext, skisenterID])
-        if(skisenterID!==""){
-            skisenterIframe=(<Iframe
-            url={`https://fnugg.no/widget/resort/?id=${skisenterID}&theme=light`}
-            width="100%"
-            height="600px"
-            />)
+            else {
+                response = await fnuggAxios.get("/search?size=1&sort=conditions.combined.top.snow.depth_terrain:desc&exists=conditions.combined.top.snow.depth_terrain")
+                setSkisenterID({id: [response.data.hits.hits[0]._id], name: "Skisenteret med mest snø:"});
+            }
+            setIsLoading(false)
+            //console.log(response)
+           
+        } catch (e) {
+            console.log(e)
+            setIsLoading(false)
         }
-    return (
-        skisenterIframe
-    )
+    },[locationContext])
+
+        useEffect(() => {
+            loadData();
+        }, [loadData])
+    
+    return(
+        <div className="SkisenterBackground">
+        <PagesFrame title={skisenterID.name}>
+            {isLoading ? <Spinner/> : null}
+            {skisenterID.id.map(sId => <SnowPost key={sId} id = {sId}/>)}
+        </PagesFrame>
+        </div>
+    );
+    
 }
 
 export default SkiSenterPage;

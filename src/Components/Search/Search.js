@@ -28,13 +28,18 @@ class Search extends Component {
 
     handlePlaceSelect = () => {
         const addressObject = this.autocomplete.getPlace();
-        this.props.destinationHandler({
-            address: addressObject.formatted_address,
-            geocode: {
-                lat: addressObject.geometry.location.lat(),
-                long: addressObject.geometry.location.lng(),
-            }
-        });
+        try{
+            this.props.destinationHandler({
+                address: addressObject.formatted_address,
+                geocode: {
+                    lat: addressObject.geometry.location.lat(),
+                    long: addressObject.geometry.location.lng(),
+                }
+            });
+
+        } catch (e){
+            console.log(e)
+        }
     }
 
     render() {
@@ -46,10 +51,10 @@ class Search extends Component {
                 <Searchbar
                     id="autocomplete"
                     placeholder={"Søk"}
-                    //value={address}: om jeg skal få valuen til å settes ved klikk på en av optionene 
+                    //value={address}  om jeg skal få valuen til å settes ved klikk på en av optionene 
                     style={{
                         margin: "0 auto",
-                        maxWidth: 800
+                        maxWidth: 800,
                     }}
                 />
             </div>

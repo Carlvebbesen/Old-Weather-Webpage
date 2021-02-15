@@ -8,11 +8,14 @@ export const DestinationContext = React.createContext({
   }
 });
 
+
 const LocationContext = props => {
   const [location, setLocation] = useState("");
+  const [activeNavBar, setActiveNavBar] = useState("/");
+
   return (
     <DestinationContext.Provider
-      value={{ pickedLocation: location, setLocation }}>
+      value={{ pickedLocation: location, setLocation, activeElement: activeNavBar, setActiveNavBar }}>
       {props.children}
     </DestinationContext.Provider>
   )

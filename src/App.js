@@ -3,8 +3,8 @@ import SearchPage from './Pages/SearchPage';
 import WeatherPage from './Pages/WeatherPage';
 import SkiSenterPage from "./Pages/SkiSenterPage";
 import VarsomPage from "./Pages/VarsomPage";
-import NavBar from "./Components/NavBar/NavBar";
 import { Redirect, Route, Switch } from "react-router-dom";
+import NavBar from "./Components/NavBar/NavBar"
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <Route path={"/"} exact component={SearchPage} />
         <Redirect to={"/"}/>
       </Switch>
-      <NavBar className={"NavBar"}/>
+      <NavBar/>
     </div>
   );
 }
