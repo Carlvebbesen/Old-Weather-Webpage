@@ -28,7 +28,6 @@ const SkiSenterPage = () => {
                 setSkisenterID({id: [response.data.hits.hits[0]._id], name: "Skisenteret med mest snø:"});
             }
             setIsLoading(false)
-            //console.log(response)
            
         } catch (e) {
             console.log(e)

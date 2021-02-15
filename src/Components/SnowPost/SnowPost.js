@@ -22,7 +22,6 @@ const SnowPost = (props) =>{
                 if(response.data.hits.hits.size<size){
                     size = response.data.hits.hits.size
                 }
-                console.log(response.data.hits.hits.slice(0,size))
                 setBlogPosts(response.data.hits.hits.slice(0,size))
             }
         }
