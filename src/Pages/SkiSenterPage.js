@@ -39,7 +39,7 @@ const SkiSenterPage = () => {
         useEffect(() => {
             loadData();
         }, [loadData])
-    
+    //Lage også en oversikt som viser hvor mye snø det har kommet de siste dagene
     return(
         <div className="SkisenterBackground">
         <PagesFrame title={skisenterID.name}>
