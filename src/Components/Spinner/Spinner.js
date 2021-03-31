@@ -1,5 +1,5 @@
-import "./Spinner.css"
+import "./Spinner.css";
 
-const Spinner = (props)=> <div className="loader"/>
+const Spinner = (props) => <div className="loader" />;
 
 export default Spinner;

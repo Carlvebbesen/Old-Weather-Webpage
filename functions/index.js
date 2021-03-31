@@ -9,23 +9,24 @@ const frostAxios = require("axios");
 //   response.send("Hello from Firebase!");
 // });
 
-exports.getFrostAccessToken = functions.https.onRequest( async (req, res) => {
-  if (req.body.client_id == undefined || req.body.client_secret == undefined) {
-    res.status(400).send("The query was not defined correctly");
-  } else {
+exports.getFrostAccessToken = functions.https.onRequest( async(req, res) => {
+  // if (req.body.client_id == undefined || req.body.client_secret == undefined) {
+  //   res.status(500).send("The query was not defined correctly");
+  // } else {
     try {
-        const loadFrostAccessToken = await frostAxios.post("https://frost.met.no/auth/accessToken", {
+        const loadFrostAccessToken = await frostAxios.post("http://frost.met.no/auth/accessToken", {
             "client_id": req.body.client_id,
             "client_secret": req.body.client_secret,
             "grant_type": "client_credentials"
         })
+        console.log(loadFrostAccessToken.data)
         res.status(200).send(loadFrostAccessToken.data)
     
     }
     catch (e) {
+        console.log(e)
         res.status(500).send(e.response.data)
     }
-  }
 });
 
 exports.getFrostData = functions.https.onRequest((req, res) => {

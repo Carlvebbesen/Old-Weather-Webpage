@@ -4,20 +4,25 @@ export const DestinationContext = React.createContext({
   address: "",
   geocode: {
     lat: "",
-    long: ""
-  }
+    long: "",
+  },
 });
 
-
-const LocationContext = props => {
+const LocationContext = (props) => {
   const [location, setLocation] = useState("");
   const [activeNavBar, setActiveNavBar] = useState("/");
 
   return (
     <DestinationContext.Provider
-      value={{ pickedLocation: location, setLocation, activeElement: activeNavBar, setActiveNavBar }}>
+      value={{
+        pickedLocation: location,
+        setLocation,
+        activeElement: activeNavBar,
+        setActiveNavBar,
+      }}
+    >
       {props.children}
     </DestinationContext.Provider>
-  )
-}
+  );
+};
 export default LocationContext;

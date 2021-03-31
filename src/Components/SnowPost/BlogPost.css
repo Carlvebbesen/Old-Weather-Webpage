@@ -1,18 +1,16 @@
 .BlogPostTitle {
-    margin: auto;
-    padding-bottom: 1%;
-    text-align: center;
-    font-weight: bold;
-    text-decoration: underline rgb(56, 152, 231);
-    font-size: larger;
+  margin: auto;
+  padding-bottom: 1%;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline rgb(56, 152, 231);
+  font-size: larger;
 }
 
 .BlogPostDescription {
-    width: 70%;
-    margin: auto;
-    text-align: center;
-    font-size: small;
+  font-size: small;
 }
-.BlogPostImage{
-    margin: auto;
+.BlogPostText {
+  margin: auto;
+  min-height: 18px;
 }
