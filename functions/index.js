@@ -1,5 +1,6 @@
-const functions = require("firebase-functions");
-const frostAxios = require("axios");
+const functions = require('firebase-functions');
+const axios = require("axios");
+
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -14,14 +15,12 @@ exports.getFrostAccessToken = functions.https.onRequest( async(req, res) => {
   //   res.status(500).send("The query was not defined correctly");
   // } else {
     try {
-        const loadFrostAccessToken = await frostAxios.post("http://frost.met.no/auth/accessToken", {
+        const loadFrostAccessToken = await axios.post("http://frost.met.no/auth/accessToken", {
             "client_id": req.body.client_id,
             "client_secret": req.body.client_secret,
             "grant_type": "client_credentials"
         })
-        console.log(loadFrostAccessToken.data)
         res.status(200).send(loadFrostAccessToken.data)
-    
     }
     catch (e) {
         console.log(e)
