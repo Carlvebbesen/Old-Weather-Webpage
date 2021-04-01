@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useCallback, useContext, useEffect } from "react";
 import { DestinationContext } from "../Context/LocationContext";
 
+
 const WeatherPage = () => {
   const globalLocation = useContext(DestinationContext);
 
@@ -10,19 +11,38 @@ const WeatherPage = () => {
       const response = await axios.post(
         "http://localhost:5001/toppturinfo/us-central1/getFrostAccessToken",
         {
-          "client_id": "3303060c-4ad8-4ea3-a7d2-4bc17dd60eed",
-          "client_secret": "6c15ec72-939b-4515-8d16-4d7820bb9c8e",
+          "client_id": process.env.REACT_APP_CLIENT_ID,
+          "client_secret": process.env.REACT_APP_CLIENT_SECRET,
         }
       );
-      console.log(response.data);
+        localStorage.setItem("accesTokenExpires", new Date.getTime()/1000 + response.data.expires_in);
+        localStorage.setItem("accessToken", response.data.access_token);
     } catch (e) {
       console.log(e);
     }
   }, []);
 
-  useEffect(() => {
-    getAccessToken();
-  }, [getAccessToken]);
+  const getWeatherData = useCallback(async ()=>{
+    const timeStampNowSec = new Date().getTime()/1000;
+    const accessTokenExpires = localStorage.getItem("accessTokenExpires");
+    console.log(timeStampNowSec)
+    console.log(accessTokenExpires)
+    if(!accessTokenExpires || accessTokenExpires< timeStampNowSec){
+      getAccessToken();
+    }
+    const accessToken = localStorage.getItem("accessToken");
+    const reponse = await axios.post(
+      "http://localhost:5001/toppturinfo/us-central1/getFrostAccessToken",
+      {"access_token": accessToken,
+        "location": globalLocation
+    }
+    );
+
+  },[getAccessToken, globalLocation])
+
+  useEffect(()=>{
+    console.log(globalLocation)
+  },[globalLocation])
 
   return (
     <div>
