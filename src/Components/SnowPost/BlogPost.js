@@ -1,20 +1,19 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
-import "./BlogPost.css";
+import styles from "../../modules/BlogPost.module.css";
 
 const BlogPost = (props) => {
-  console.log(props.description);
   return (
     <Grid
       container
       direction="row"
       justify="center"
       alignItems="center"
-      className="BlogPostDescription"
+      className={styles.BlogPostDescription}
       style={{ marginBottom: "5%" }}
     >
       <Grid item xs={11}>
-        <p className="BlogPostTitle">
+        <p className={styles.BlogPostTitle}>
           {props.date.split("T")[0]} : {props.title}
         </p>
       </Grid>
@@ -30,7 +29,7 @@ const BlogPost = (props) => {
       </Grid>
       <Grid item xs={10}>
         {props.description.split("\n").map((paragraph) => (
-          <p className="BlogPostText">{paragraph}</p>
+          <p className={styles.BlogPostText}>{paragraph}</p>
         ))}
       </Grid>
     </Grid>

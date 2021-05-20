@@ -1,14 +1,14 @@
 import React from "react";
-import "./PagesFrame.css";
+import styles from  "../../modules/PagesFrame.module.css";
 
 const PagesFrame = (props) => {
   return (
-    <div className="FramePages">
+    <div className={styles.FramePages}>
       {props.title !== "" ? (
-        <p className="PagesFrameTitle">{props.title}</p>
+        <p className={styles.PagesFrameTitle}>{props.title}</p>
       ) : null}
       {props.children}
-      <p className="FnuggCopyRight">{props.copyRight}</p>
+      <p className={styles.FnuggCopyRight}>{props.copyRight}</p>
     </div>
   );
 };

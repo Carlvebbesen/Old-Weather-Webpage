@@ -1,17 +1,6 @@
 const functions = require('firebase-functions');
 const axios = require("axios");
 
-
-// import * as functions from "firebase-functions";
-// import * as axios from "axios";
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
-
 exports.getFrostAccessToken = functions.https.onRequest( async(req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
 
@@ -47,9 +36,8 @@ exports.getFrostData = functions.https.onRequest((req, res) => {
     res.set('Access-Control-Max-Age', 86400);
     res.status(204).send('');
   } else {
-  if (req.body.access_token == undefined) {
-    res.status(500).send("The access_token was not sent with the request");
-  } else {
+  if (!req.body.access_token) res.status(500).send("The access_token was not sent with the request");
+  else {
 
   }
 }

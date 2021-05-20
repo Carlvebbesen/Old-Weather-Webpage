@@ -19,6 +19,7 @@
   cursor: pointer;
   border-bottom: 4px solid rgba(67, 149, 216, 0.575);
   width: 90%;
+  padding: 10px 0px;
   background-color: rgba(218, 223, 225, 0.9);
   border-radius: 15px;
 }

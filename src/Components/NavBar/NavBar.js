@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import "./NavBar.css";
+import styles from "../../modules/NavBar.module.css";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import MountainIcon from "@material-ui/icons/FilterHdrTwoTone";
@@ -27,7 +27,7 @@ export default function LabelBottomNavigation() {
     <BottomNavigation
       value={activeValueContext.activeElement}
       onChange={handleChange}
-      className={"NavBar"}
+      className={styles.NavBar}
     >
       <BottomNavigationAction
         label="Værdata"

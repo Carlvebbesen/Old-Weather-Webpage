@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import React, { useCallback, useEffect, useState } from "react";
-import "./SnowPost.css";
+import styles from "../../modules/SnowPost.module.css"
 import Spinner from "../Spinner/Spinner";
 import FnuggAxios from "../../Axios-instances/FnuggAxios";
 import BlogPost from "./BlogPost";
@@ -40,7 +40,7 @@ const SnowPost = (props) => {
       <iframe
         loading="eager"
         title="Skisenter"
-        className="SkisenterIframe"
+        className={styles.SkisenterIframe}
         src={`https://fnugg.no/widget/resort/?id=${props.id}&theme=light`}
         frameBorder="0"
       />
@@ -55,7 +55,7 @@ const SnowPost = (props) => {
         alignItems="center"
       >
         {blogPosts.map((post) => (
-          <Grid item xs={12}>
+          <Grid item xs={12} key={Math.floor(Math.random()*10000)}>
             <BlogPost
               key={post._id}
               title={post._source.title}
@@ -74,11 +74,11 @@ const SnowPost = (props) => {
   }
 
   return (
-    <div className="SnowPostFrame">
+    <div className={styles.SnowPostFrame}>
       {loadSkiFrame}
       {blogPosts === "" ? null : (
         <p onClick={() => toggleshowPosts()} className="SnowPostTitle">
-          Trykk for oppdateringer fra Alpinsenteret
+            {!showPosts ? "Vis blogg" : "Skjul blogg" }
         </p>
       )}
       <Grid

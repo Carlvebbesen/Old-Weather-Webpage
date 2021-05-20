@@ -4,7 +4,6 @@ import fnuggAxios from "../Axios-instances/FnuggAxios";
 import Spinner from "../Components/Spinner/Spinner";
 import PagesFrame from "../Components/PagesFrame/PagesFrame";
 import SnowPost from "../Components/SnowPost/SnowPost";
-import "./Pages.css";
 import { Grid } from "@material-ui/core";
 
 const SkiSenterPage = () => {
@@ -67,7 +66,7 @@ const SkiSenterPage = () => {
           alignItems="flex-start"
         >
           {skisenterID.id.map((sId) => (
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} key={Math.floor(Math.random()*10000)}>
               <SnowPost key={sId} id={sId} />
             </Grid>
           ))}

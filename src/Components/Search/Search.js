@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Searchbar from "material-ui-search-bar";
 import Script from "react-load-script";
-import "./Search.css";
+import styles from "../../modules/Search.module.css";
 
 class Search extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class Search extends Component {
   };
   render() {
     return (
-      <div className={`SearchBar SearchBarBackgroundImg`}>
+      <div className={`${styles.SearchBar} ${styles.SearchBarBackgroundImg}`}>
         <Script
           url={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`}
           onLoad={this.handleScriptLoad}
